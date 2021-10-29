@@ -36,17 +36,8 @@ public class StuffFood extends AppCompatActivity {
     private DatabaseReference databaseReference = firebaseDatabase.getReference();
 
     //firebase 데이터 저장
-    private EditText editdt;
-    public String msg;
-
-    //firebase 데이터 가져오기
-    private FirebaseDatabase mDatabase;
-    private DatabaseReference mReference;
-    private ChildEventListener mChild;
-
-    private ListView listView;
-    private ArrayAdapter<String> adapter;
-    List<Object> Array = new ArrayList<Object>();
+    private EditText editdt, editdt2;
+    public String a, b, c;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +57,7 @@ public class StuffFood extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
             } //이 오버라이드 메소드에서 position은 몇번째 값이 클릭됬는지 알 수 있습니다.
+
             //getItemAtPosition(position)를 통해서 해당 값을 받아올수있습니다.
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
@@ -74,89 +66,24 @@ public class StuffFood extends AppCompatActivity {
 
         sendbt = (Button) findViewById(R.id.button2);
         editdt = (EditText) findViewById(R.id.editText);
-        
-        //firebase 데이터 가져오기
-        listView = (ListView) findViewById(R.id.listview);
-
-        initDatabase();
-
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, new ArrayList<String>());
-        listView.setAdapter(adapter);
+        editdt2 = (EditText) findViewById(R.id.editText2);
+        spinner = (Spinner)findViewById(R.id.spinner);
 
         //firebase 식품명 저장
         sendbt.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
                 // 버튼 누르면 수행 할 명령, 이름에 값 출력
-                msg = editdt.getText().toString();
-                databaseReference.child("식품명").push().setValue(msg);
+                a = editdt.getText().toString();
+                b = editdt2.getText().toString();
+                c = spinner.getSelectedItem().toString();
+                databaseReference.child("식품명").push().setValue(a);
+                databaseReference.child("구매일자").push().setValue(b);
+                databaseReference.child("카테고리").push().setValue(c);
             }
         });
-
-        //firebase 데이터 가져오기
-        mReference = mDatabase.getReference("식품명"); // 변경값을 확인할 child 이름
-        mReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                adapter.clear();
-
-                for (DataSnapshot messageData : dataSnapshot.getChildren()) {
-                    String msg2 = messageData.getValue().toString();
-                    Array.add(msg2);
-                    adapter.add(msg2);
-                }
-                adapter.notifyDataSetChanged();
-                listView.setSelection(adapter.getCount() - 1);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
     }
 
-    private void initDatabase() {
 
-        mDatabase = FirebaseDatabase.getInstance();
-
-        mReference = mDatabase.getReference("log");
-        mReference.child("log").setValue("check");
-
-        mChild = new ChildEventListener() {
-
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        };
-        mReference.addChildEventListener(mChild);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mReference.removeEventListener(mChild);
-    }
 
     // 유통기한 날짜 선택하기
     public void clickDate(View view){
