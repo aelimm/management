@@ -16,11 +16,12 @@
         android:layout_marginEnd="21dp"
         android:layout_marginRight="21dp"
         android:layout_marginBottom="66dp"
+        android:background="#00FFFFFF"
         app:layout_constraintBottom_toTopOf="@+id/foodButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/ic_launcher_round" />
+        app:srcCompat="@drawable/logo" />
 
     <Button
         android:id="@+id/foodButton"
@@ -29,6 +30,7 @@
         android:layout_marginStart="38dp"
         android:layout_marginLeft="38dp"
         android:layout_marginBottom="36dp"
+        android:background="#699BC3"
         android:onClick="goFoodList"
         android:text="식품"
         app:layout_constraintBottom_toTopOf="@+id/pillButton"
@@ -40,6 +42,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="39dp"
+        android:background="#699BC3"
         android:onClick="goPillList"
         android:text="의약품"
         app:layout_constraintBottom_toTopOf="@+id/alarmButton"
@@ -53,6 +56,7 @@
         android:layout_marginStart="2dp"
         android:layout_marginLeft="2dp"
         android:layout_marginBottom="101dp"
+        android:background="#699BC3"
         android:text="알림"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/pillButton"

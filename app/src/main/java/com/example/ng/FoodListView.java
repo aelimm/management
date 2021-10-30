@@ -8,6 +8,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -19,9 +21,13 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class FoodListView extends AppCompatActivity {
 
-    //firebase 데이터 가져오기
+    //recyclerview 설정하기
+    //RecyclerView recyclerView;
+
+    //firebase listview 데이터 가져오기
     private FirebaseDatabase mDatabase;
     private DatabaseReference mReference;
     private ChildEventListener mChild;
@@ -34,6 +40,14 @@ public class FoodListView extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.food_lst);
+
+        //recyclerview 설정하기
+        /*recyclerView = findViewById(R.id.recyclerview);
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false);
+        recyclerView.setLayoutManager(layoutManager);
+        int child_case = 0;
+        recyclerView.setAdapter(new RecyclerViewAdapter(child_case));*/
         
         //firebase 데이터 가져오기
         listView = (ListView) findViewById(R.id.listview);

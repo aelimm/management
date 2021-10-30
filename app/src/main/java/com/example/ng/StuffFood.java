@@ -37,7 +37,7 @@ public class StuffFood extends AppCompatActivity {
 
     //firebase 데이터 저장
     private EditText editdt, editdt2;
-    public String a, b, c;
+    public String a, b, c, d;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,9 +64,13 @@ public class StuffFood extends AppCompatActivity {
             }
         });
 
+
+
+
         sendbt = (Button) findViewById(R.id.button2);
         editdt = (EditText) findViewById(R.id.editText);
         editdt2 = (EditText) findViewById(R.id.editText2);
+        btn_date = (Button) findViewById(R.id.btn_date);
         spinner = (Spinner)findViewById(R.id.spinner);
 
         //firebase 식품명 저장
@@ -76,8 +80,10 @@ public class StuffFood extends AppCompatActivity {
                 a = editdt.getText().toString();
                 b = editdt2.getText().toString();
                 c = spinner.getSelectedItem().toString();
+                d = btn_date.getText().toString();
                 databaseReference.child("식품명").push().setValue(a);
                 databaseReference.child("구매일자").push().setValue(b);
+                databaseReference.child("유통기한").push().setValue(d);
                 databaseReference.child("카테고리").push().setValue(c);
             }
         });
