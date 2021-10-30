@@ -14,25 +14,25 @@ public class MainActivity extends AppCompatActivity {
 
     //github push test12
 
-    private Button sendbt;
-
+    //firebase 연동 코드
+    /* private Button sendbt;
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-    private DatabaseReference databaseReference = firebaseDatabase.getReference();
+    private DatabaseReference databaseReference = firebaseDatabase.getReference(); */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        sendbt = (Button) findViewById(R.id.button);
+        /* sendbt = (Button) findViewById(R.id.button);
 
         sendbt.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
-                // 버튼 누르면 수행 할 명령
+                // 버튼 누르면 수행 할 명령, 이름에 값 출력
                 databaseReference.child("message").push().setValue("2");
                 databaseReference.child("message").child("gbgg").setValue("2");
             }
-        });
+        }); */
     }
     public void goFoodList(View view) {
         Intent myIntent = new Intent(getApplicationContext(), FoodListView.class);

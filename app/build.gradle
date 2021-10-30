@@ -10,7 +10,7 @@ android {
     buildToolsVersion "29.0.2"
     defaultConfig {
         applicationId "com.example.ng"
-        minSdkVersion 16
+        minSdkVersion 16 //sdk버전 변경 15 -> 16
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -36,4 +36,5 @@ dependencies {
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation platform('com.google.firebase:firebase-bom:28.4.2')
     implementation 'com.google.firebase:firebase-analytics'
+    implementation 'gun0912.ted:tedpermission:2.0.0'
 }
