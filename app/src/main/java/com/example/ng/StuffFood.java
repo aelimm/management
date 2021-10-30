@@ -1,13 +1,17 @@
 package com.example.ng;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
 
@@ -25,6 +29,8 @@ import java.util.Calendar;
 import java.util.List;
 
 public class StuffFood extends AppCompatActivity {
+
+    ImageView imageView;
 
     Button btn_date;
     DatePickerDialog datePickerDialog;
@@ -64,16 +70,18 @@ public class StuffFood extends AppCompatActivity {
             }
         });
 
+        //카메라 실행
+        imageView = (ImageView) findViewById(R.id.imageView2);
+        imageView.setOnClickListener(this::onClick);
 
 
-
+        //firebase 식품명 저장
         sendbt = (Button) findViewById(R.id.button2);
         editdt = (EditText) findViewById(R.id.editText);
         editdt2 = (EditText) findViewById(R.id.editText2);
         btn_date = (Button) findViewById(R.id.btn_date);
         spinner = (Spinner)findViewById(R.id.spinner);
 
-        //firebase 식품명 저장
         sendbt.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
                 // 버튼 누르면 수행 할 명령, 이름에 값 출력
@@ -85,15 +93,39 @@ public class StuffFood extends AppCompatActivity {
                 databaseReference.child("구매일자").push().setValue(b);
                 databaseReference.child("유통기한").push().setValue(d);
                 databaseReference.child("카테고리").push().setValue(c);
+
             }
         });
+    }
+
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.imageView2:
+                Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(i,0);
+                break;
+        }
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == 0 && resultCode == RESULT_OK){
+            Bundle extras = data.getExtras();
+
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+
+            imageView.setImageBitmap(imageBitmap);
+        }
     }
 
 
 
     // 유통기한 날짜 선택하기
     public void clickDate(View view){
-       if(view == btn_date){
+        if(view == btn_date){
             final Calendar c = Calendar.getInstance();
             int mYear = c.get(Calendar.YEAR);
             int mMonth = c.get(Calendar.MONTH);
