@@ -3,36 +3,43 @@ package com.example.ng;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
-import java.util.ArrayList;
+import java.io.ByteArrayOutputStream;
 import java.util.Calendar;
-import java.util.List;
+import java.util.UUID;
 
 //test
 
 public class StuffFood extends AppCompatActivity {
 
     ImageView imageView;
+    private Bitmap image;
+    private StorageReference mStorageRef;
 
     Button btn_date;
     DatePickerDialog datePickerDialog;
@@ -51,6 +58,8 @@ public class StuffFood extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.plus_food);
+
+        mStorageRef = FirebaseStorage.getInstance().getReference();
 
         btn_date = findViewById(R.id.btn_date); //캘린더
         spinner = findViewById(R.id.spinner);   //카테고리
@@ -73,7 +82,7 @@ public class StuffFood extends AppCompatActivity {
         });
 
         //카메라 실행
-        imageView = (ImageView) findViewById(R.id.imageView2);
+        imageView = (ImageView) findViewById(R.id.imageView);
         imageView.setOnClickListener(this::onClick);
 
 
@@ -96,33 +105,63 @@ public class StuffFood extends AppCompatActivity {
                 databaseReference.child("유통기한").push().setValue(d);
                 databaseReference.child("카테고리").push().setValue(c);
 
+                upload();
             }
         });
     }
 
     public void onClick(View view) {
-        switch (view.getId()){
-            case R.id.imageView2:
-                Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(i,0);
-                break;
-        }
+        Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(i,0);
     }
 
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == 0 && resultCode == RESULT_OK){
-            Bundle extras = data.getExtras();
-
-            Bitmap imageBitmap = (Bitmap) extras.get("data");
-
-            imageView.setImageBitmap(imageBitmap);
+        if (requestCode == 0 && resultCode == RESULT_OK) {
+            image = (Bitmap) data.getExtras().get("data");
+            imageView.setImageBitmap(image);
         }
     }
 
+    private void upload() {
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        image.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+
+        final String random = UUID.randomUUID().toString();
+        StorageReference imageRef = mStorageRef.child("image/" + random);
+
+        byte[] b = stream.toByteArray();
+        imageRef.putBytes(b)
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
+                        taskSnapshot.getMetadata().getReference().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                Uri downloadUri = uri;
+                            }
+                        });
+
+                        Toast.makeText(StuffFood.this, "Photo Uploaded", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
+                        Toast.makeText(StuffFood.this, "Upload Failed", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
 
 
     // 유통기한 날짜 선택하기

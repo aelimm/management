@@ -7,7 +7,7 @@
     tools:context=".MainActivity">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/ng"
         android:layout_width="179dp"
         android:layout_height="0dp"
         android:layout_marginStart="21dp"
@@ -34,8 +34,8 @@
         android:onClick="goFoodList"
         android:text="식품"
         app:layout_constraintBottom_toTopOf="@+id/pillButton"
-        app:layout_constraintStart_toStartOf="@+id/imageView"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintStart_toStartOf="@+id/ng"
+        app:layout_constraintTop_toBottomOf="@+id/ng" />
 
     <Button
         android:id="@+id/pillButton"

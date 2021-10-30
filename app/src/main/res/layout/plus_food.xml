@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/imageView"
         android:layout_width="420px"
         android:layout_height="420px"
         app:srcCompat="@android:drawable/ic_input_add" />
