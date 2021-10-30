@@ -31,9 +31,10 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.UUID;
 
-//test
+//test12
 
 public class StuffFood extends AppCompatActivity {
 
@@ -85,7 +86,6 @@ public class StuffFood extends AppCompatActivity {
         imageView = (ImageView) findViewById(R.id.imageView);
         imageView.setOnClickListener(this::onClick);
 
-
         //firebase 식품명 저장
         sendbt = (Button) findViewById(R.id.button2);
         editdt = (EditText) findViewById(R.id.editText);
@@ -100,12 +100,18 @@ public class StuffFood extends AppCompatActivity {
                 b = editdt2.getText().toString();
                 c = spinner.getSelectedItem().toString();
                 d = btn_date.getText().toString();
-                databaseReference.child("식품명").push().setValue(a);
-                databaseReference.child("구매일자").push().setValue(b);
-                databaseReference.child("유통기한").push().setValue(d);
-                databaseReference.child("카테고리").push().setValue(c);
+
+                HashMap result = new HashMap<>();
+                result.put("식품명", a);
+                result.put("구매일자", b);
+                result.put("유통기한", c);
+                result.put("카테고리", d);
+                databaseReference.child("food").push().setValue(result);
 
                 upload();
+
+                Intent myIntent = new Intent(getApplicationContext(), FoodListView.class);
+                startActivity(myIntent);
             }
         });
     }
@@ -114,7 +120,6 @@ public class StuffFood extends AppCompatActivity {
         Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(i,0);
     }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
