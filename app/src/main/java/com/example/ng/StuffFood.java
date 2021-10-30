@@ -31,6 +31,7 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.UUID;
 
 //test
@@ -98,16 +99,24 @@ public class StuffFood extends AppCompatActivity {
                 // 버튼 누르면 수행 할 명령, 이름에 값 출력
                 a = editdt.getText().toString();
                 b = editdt2.getText().toString();
-                c = spinner.getSelectedItem().toString();
-                d = btn_date.getText().toString();
-                databaseReference.child("식품명").push().setValue(a);
-                databaseReference.child("구매일자").push().setValue(b);
-                databaseReference.child("유통기한").push().setValue(d);
-                databaseReference.child("카테고리").push().setValue(c);
+                c = btn_date.getText().toString();
+                d = spinner.getSelectedItem().toString();
+
+                HashMap result = new HashMap<>();
+                result.put("식품명", a);
+                result.put("구매일자", b);
+                result.put("유통기한", c);
+                result.put("카테고리", d);
+
+                databaseReference.child("food").push().setValue(result);
 
                 upload();
+
+                Intent myIntent = new Intent(getApplicationContext(), FoodListView.class);
+                startActivity(myIntent);
             }
         });
+
     }
 
     public void onClick(View view) {
