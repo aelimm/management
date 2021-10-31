@@ -9,6 +9,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -49,7 +51,7 @@ public class FoodListView extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         int child_case = 0;
         recyclerView.setAdapter(new RecyclerViewAdapter(child_case));*/
-        
+
         //firebase 데이터 가져오기
         listView = (ListView) findViewById(R.id.listview1);
 

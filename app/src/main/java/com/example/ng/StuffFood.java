@@ -31,6 +31,7 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.UUID;
 
 //test
@@ -61,11 +62,11 @@ public class StuffFood extends AppCompatActivity {
 
         mStorageRef = FirebaseStorage.getInstance().getReference();
 
-        btn_date = findViewById(R.id.btn_date); //캘린더
-        spinner = findViewById(R.id.spinner);   //카테고리
+        btn_date = findViewById(R.id.btn_foodDate2); //캘린더
+        spinner = findViewById(R.id.spinner_foodCategory);   //카테고리
 
         //카테고리 선택
-        ArrayAdapter monthAdapter = ArrayAdapter.createFromResource(this, R.array.category, android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter monthAdapter = ArrayAdapter.createFromResource(this, R.array.foodCategory, android.R.layout.simple_spinner_dropdown_item);
         //R.array.category는 저희가 정의해놓은 카테고리 / android.R.layout.simple_spinner_dropdown_item은 기본으로 제공해주는 형식입니다.
         monthAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(monthAdapter); //어댑터에 연결해줍니다.
@@ -82,32 +83,40 @@ public class StuffFood extends AppCompatActivity {
         });
 
         //카메라 실행
-        imageView = (ImageView) findViewById(R.id.imageView);
+        imageView = (ImageView) findViewById(R.id.imageView_food);
         imageView.setOnClickListener(this::onClick);
 
 
         //firebase 식품명 저장
-        sendbt = (Button) findViewById(R.id.button2);
-        editdt = (EditText) findViewById(R.id.editText);
-        editdt2 = (EditText) findViewById(R.id.editText2);
-        btn_date = (Button) findViewById(R.id.btn_date);
-        spinner = (Spinner)findViewById(R.id.spinner);
+        sendbt = (Button) findViewById(R.id.btn_savefood);
+        editdt = (EditText) findViewById(R.id.text_foodName);
+        editdt2 = (EditText) findViewById(R.id.btn_foodDate);
+        btn_date = (Button) findViewById(R.id.btn_foodDate2);
+        spinner = (Spinner)findViewById(R.id.spinner_foodCategory);
 
         sendbt.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
                 // 버튼 누르면 수행 할 명령, 이름에 값 출력
                 a = editdt.getText().toString();
                 b = editdt2.getText().toString();
-                c = spinner.getSelectedItem().toString();
-                d = btn_date.getText().toString();
-                databaseReference.child("식품명").push().setValue(a);
-                databaseReference.child("구매일자").push().setValue(b);
-                databaseReference.child("유통기한").push().setValue(d);
-                databaseReference.child("카테고리").push().setValue(c);
+                c = btn_date.getText().toString();
+                d = spinner.getSelectedItem().toString();
+
+                HashMap result = new HashMap<>();
+                result.put("식품명", a);
+                result.put("구매일자", b);
+                result.put("유통기한", c);
+                result.put("카테고리", d);
+
+                databaseReference.child("food").push().setValue(result);
 
                 upload();
+
+                Intent myIntent = new Intent(getApplicationContext(), FoodListView.class);
+                startActivity(myIntent);
             }
         });
+
     }
 
     public void onClick(View view) {
