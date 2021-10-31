@@ -34,7 +34,11 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.UUID;
 
+<<<<<<< HEAD
 //test12
+=======
+//test
+>>>>>>> aelim
 
 public class StuffPill extends AppCompatActivity {
 
@@ -42,18 +46,32 @@ public class StuffPill extends AppCompatActivity {
     private Bitmap image;
     private StorageReference mStorageRef;
 
+<<<<<<< HEAD
     Button btn_date;
     DatePickerDialog datePickerDialog;
     Spinner spinner;
 
     //firebase 연동
     private Button sendbt;
+=======
+    Button btn_date2;
+    DatePickerDialog datePickerDialog;
+    Spinner spinner2;
+
+    //firebase 연동
+    private Button send;
+>>>>>>> aelim
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference databaseReference = firebaseDatabase.getReference();
 
     //firebase 데이터 저장
+<<<<<<< HEAD
     private EditText editdt, editdt2;
     public String e, f, g, h;
+=======
+    private EditText edit, edit2;
+    public String a, b, c, d;
+>>>>>>> aelim
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,16 +80,27 @@ public class StuffPill extends AppCompatActivity {
 
         mStorageRef = FirebaseStorage.getInstance().getReference();
 
+<<<<<<< HEAD
         btn_date = findViewById(R.id.btn_pillDate2); //캘린더
         spinner = findViewById(R.id.spinner_pillCategory);   //카테고리
+=======
+        btn_date2 = findViewById(R.id.btn_pillDate2); //캘린더
+        spinner2 = findViewById(R.id.spinner_pillCategory);   //카테고리
+>>>>>>> aelim
 
         //카테고리 선택
         ArrayAdapter monthAdapter = ArrayAdapter.createFromResource(this, R.array.pillCategory, android.R.layout.simple_spinner_dropdown_item);
         //R.array.category는 저희가 정의해놓은 카테고리 / android.R.layout.simple_spinner_dropdown_item은 기본으로 제공해주는 형식입니다.
         monthAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+<<<<<<< HEAD
         spinner.setAdapter(monthAdapter); //어댑터에 연결해줍니다.
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+=======
+        spinner2.setAdapter(monthAdapter); //어댑터에 연결해줍니다.
+
+        spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+>>>>>>> aelim
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
             } //이 오버라이드 메소드에서 position은 몇번째 값이 클릭됬는지 알 수 있습니다.
@@ -86,6 +115,7 @@ public class StuffPill extends AppCompatActivity {
         imageView = (ImageView) findViewById(R.id.imageView_pill);
         imageView.setOnClickListener(this::onClick);
 
+<<<<<<< HEAD
         //firebase 식품명 저장
         sendbt = (Button) findViewById(R.id.btn_savepill);
         editdt = (EditText) findViewById(R.id.text_pillName);
@@ -107,6 +137,31 @@ public class StuffPill extends AppCompatActivity {
                 result.put("유통기한", g);
                 result.put("카테고리", h);
                 databaseReference.child("pill").push().setValue(result);
+=======
+
+        //firebase 식품명 저장
+        send = (Button) findViewById(R.id.btn_savepill);
+        edit = (EditText) findViewById(R.id.text_pillName);
+        edit2 = (EditText) findViewById(R.id.btn_pillDate);
+        btn_date2 = (Button) findViewById(R.id.btn_pillDate2);
+        spinner2 = (Spinner)findViewById(R.id.spinner_pillCategory);
+
+        send.setOnClickListener(new Button.OnClickListener() {
+            public void onClick(View v) {
+                // 버튼 누르면 수행 할 명령, 이름에 값 출력
+                a = edit.getText().toString();
+                b = edit2.getText().toString();
+                c = btn_date2.getText().toString();
+                d = spinner2.getSelectedItem().toString();
+
+                HashMap result2 = new HashMap<>();
+                result2.put("약품명", a);
+                result2.put("구매일자", b);
+                result2.put("유통기한", c);
+                result2.put("카테고리", d);
+
+                databaseReference.child("pill").push().setValue(result2);
+>>>>>>> aelim
 
                 upload();
 
@@ -114,6 +169,10 @@ public class StuffPill extends AppCompatActivity {
                 startActivity(myIntent);
             }
         });
+<<<<<<< HEAD
+=======
+
+>>>>>>> aelim
     }
 
     public void onClick(View view) {
@@ -121,6 +180,10 @@ public class StuffPill extends AppCompatActivity {
         startActivityForResult(i,0);
     }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> aelim
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -138,9 +201,14 @@ public class StuffPill extends AppCompatActivity {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         image.compress(Bitmap.CompressFormat.JPEG, 100, stream);
 
+<<<<<<< HEAD
 
         final String random = UUID.randomUUID().toString();
         StorageReference imageRef = mStorageRef.child("image/" + random);
+=======
+        final String random = UUID.randomUUID().toString();
+        StorageReference imageRef = mStorageRef.child("pill/" + random);
+>>>>>>> aelim
 
         byte[] b = stream.toByteArray();
         imageRef.putBytes(b)
@@ -172,7 +240,11 @@ public class StuffPill extends AppCompatActivity {
 
     // 유통기한 날짜 선택하기
     public void clickDate(View view){
+<<<<<<< HEAD
         if(view == btn_date){
+=======
+        if(view == btn_date2){
+>>>>>>> aelim
             final Calendar c = Calendar.getInstance();
             int mYear = c.get(Calendar.YEAR);
             int mMonth = c.get(Calendar.MONTH);
@@ -181,7 +253,11 @@ public class StuffPill extends AppCompatActivity {
             DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
                 @Override
                 public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+<<<<<<< HEAD
                     btn_date.setText(year+" / "+(month+1)+" / "+dayOfMonth);
+=======
+                    btn_date2.setText(year+" / "+(month+1)+" / "+dayOfMonth);
+>>>>>>> aelim
                 }
             },mYear,mMonth,mDay);
             datePickerDialog.show();
