@@ -42,7 +42,7 @@ public class FoodListView extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.food_lst);
+        setContentView(R.layout.food_list);
 
         //recyclerview 설정하기
         /*recyclerView = findViewById(R.id.recyclerview);
@@ -53,7 +53,7 @@ public class FoodListView extends AppCompatActivity {
         recyclerView.setAdapter(new RecyclerViewAdapter(child_case));*/
         
         //firebase 데이터 가져오기
-        listView = (ListView) findViewById(R.id.listview);
+        listView = (ListView) findViewById(R.id.listview1);
 
         initDatabase();
 

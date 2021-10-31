@@ -62,11 +62,11 @@ public class StuffPill extends AppCompatActivity {
 
         mStorageRef = FirebaseStorage.getInstance().getReference();
 
-        btn_date2 = findViewById(R.id.btn_date2); //캘린더
-        spinner2 = findViewById(R.id.spinner2);   //카테고리
+        btn_date2 = findViewById(R.id.btn_pillDate2); //캘린더
+        spinner2 = findViewById(R.id.spinner_pillCategory);   //카테고리
 
         //카테고리 선택
-        ArrayAdapter monthAdapter = ArrayAdapter.createFromResource(this, R.array.category, android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter monthAdapter = ArrayAdapter.createFromResource(this, R.array.pillCategory, android.R.layout.simple_spinner_dropdown_item);
         //R.array.category는 저희가 정의해놓은 카테고리 / android.R.layout.simple_spinner_dropdown_item은 기본으로 제공해주는 형식입니다.
         monthAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner2.setAdapter(monthAdapter); //어댑터에 연결해줍니다.
@@ -83,16 +83,16 @@ public class StuffPill extends AppCompatActivity {
         });
 
         //카메라 실행
-        imageView = (ImageView) findViewById(R.id.imageView2);
+        imageView = (ImageView) findViewById(R.id.imageView_pill);
         imageView.setOnClickListener(this::onClick);
 
 
         //firebase 식품명 저장
-        send = (Button) findViewById(R.id.button3);
-        edit = (EditText) findViewById(R.id.editText3);
-        edit2 = (EditText) findViewById(R.id.editText4);
-        btn_date2 = (Button) findViewById(R.id.btn_date2);
-        spinner2 = (Spinner)findViewById(R.id.spinner2);
+        send = (Button) findViewById(R.id.btn_savepill);
+        edit = (EditText) findViewById(R.id.text_pillName);
+        edit2 = (EditText) findViewById(R.id.btn_pillDate);
+        btn_date2 = (Button) findViewById(R.id.btn_pillDate2);
+        spinner2 = (Spinner)findViewById(R.id.spinner_pillCategory);
 
         send.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
