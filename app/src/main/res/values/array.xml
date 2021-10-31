@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string-array name="category">
+    <string-array name="foodCategory">
         <item>냉장실</item>
         <item>냉동실</item>
         <item>상온</item>
+    </string-array>
+
+    <string-array name="pillCategory">
+        <item>처방약</item>
+        <item>영양제</item>
+        <item>상비약</item>
     </string-array>
 
 </resources>

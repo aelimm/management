@@ -66,7 +66,7 @@ public class StuffPill extends AppCompatActivity {
         spinner = findViewById(R.id.spinner_pillCategory);   //카테고리
 
         //카테고리 선택
-        ArrayAdapter monthAdapter = ArrayAdapter.createFromResource(this, R.array.category, android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter monthAdapter = ArrayAdapter.createFromResource(this, R.array.pillCategory, android.R.layout.simple_spinner_dropdown_item);
         //R.array.category는 저희가 정의해놓은 카테고리 / android.R.layout.simple_spinner_dropdown_item은 기본으로 제공해주는 형식입니다.
         monthAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(monthAdapter); //어댑터에 연결해줍니다.
