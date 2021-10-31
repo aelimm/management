@@ -58,7 +58,7 @@ public class StuffPill extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.plus_food);
+        setContentView(R.layout.plus_pill);
 
         mStorageRef = FirebaseStorage.getInstance().getReference();
 
