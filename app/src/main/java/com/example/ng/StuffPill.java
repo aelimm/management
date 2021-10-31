@@ -36,7 +36,7 @@ import java.util.UUID;
 
 //test12
 
-public class StuffFood extends AppCompatActivity {
+public class StuffPill extends AppCompatActivity {
 
     ImageView imageView;
     private Bitmap image;
@@ -53,7 +53,7 @@ public class StuffFood extends AppCompatActivity {
 
     //firebase 데이터 저장
     private EditText editdt, editdt2;
-    public String a, b, c, d;
+    public String e, f, g, h;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,8 +62,8 @@ public class StuffFood extends AppCompatActivity {
 
         mStorageRef = FirebaseStorage.getInstance().getReference();
 
-        btn_date = findViewById(R.id.btn_foodDate2); //캘린더
-        spinner = findViewById(R.id.spinner_foodCategory);   //카테고리
+        btn_date = findViewById(R.id.btn_pillDate2); //캘린더
+        spinner = findViewById(R.id.spinner_pillCategory);   //카테고리
 
         //카테고리 선택
         ArrayAdapter monthAdapter = ArrayAdapter.createFromResource(this, R.array.category, android.R.layout.simple_spinner_dropdown_item);
@@ -83,34 +83,34 @@ public class StuffFood extends AppCompatActivity {
         });
 
         //카메라 실행
-        imageView = (ImageView) findViewById(R.id.imageView_food);
+        imageView = (ImageView) findViewById(R.id.imageView_pill);
         imageView.setOnClickListener(this::onClick);
 
         //firebase 식품명 저장
-        sendbt = (Button) findViewById(R.id.btn_savefood);
-        editdt = (EditText) findViewById(R.id.text_foodName);
-        editdt2 = (EditText) findViewById(R.id.btn_foodDate);
-        btn_date = (Button) findViewById(R.id.btn_foodDate2);
-        spinner = (Spinner)findViewById(R.id.spinner_foodCategory);
+        sendbt = (Button) findViewById(R.id.btn_savepill);
+        editdt = (EditText) findViewById(R.id.text_pillName);
+        editdt2 = (EditText) findViewById(R.id.btn_pillDate);
+        btn_date = (Button) findViewById(R.id.btn_pillDate2);
+        spinner = (Spinner)findViewById(R.id.spinner_pillCategory);
 
         sendbt.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
                 // 버튼 누르면 수행 할 명령, 이름에 값 출력
-                a = editdt.getText().toString();
-                b = editdt2.getText().toString();
-                c = spinner.getSelectedItem().toString();
-                d = btn_date.getText().toString();
+                e = editdt.getText().toString();
+                f = editdt2.getText().toString();
+                g = spinner.getSelectedItem().toString();
+                h = btn_date.getText().toString();
 
                 HashMap result = new HashMap<>();
-                result.put("식품명", a);
-                result.put("구매일자", b);
-                result.put("유통기한", c);
-                result.put("카테고리", d);
-                databaseReference.child("food").push().setValue(result);
+                result.put("식품명", e);
+                result.put("구매일자", f);
+                result.put("유통기한", g);
+                result.put("카테고리", h);
+                databaseReference.child("pill").push().setValue(result);
 
                 upload();
 
-                Intent myIntent = new Intent(getApplicationContext(), FoodListView.class);
+                Intent myIntent = new Intent(getApplicationContext(), PillListView.class);
                 startActivity(myIntent);
             }
         });
@@ -156,7 +156,7 @@ public class StuffFood extends AppCompatActivity {
                             }
                         });
 
-                        Toast.makeText(StuffFood.this, "Photo Uploaded", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(StuffPill.this, "Photo Uploaded", Toast.LENGTH_SHORT).show();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -164,7 +164,7 @@ public class StuffFood extends AppCompatActivity {
                     public void onFailure(@NonNull Exception e) {
                         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
-                        Toast.makeText(StuffFood.this, "Upload Failed", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(StuffPill.this, "Upload Failed", Toast.LENGTH_SHORT).show();
                     }
                 });
     }

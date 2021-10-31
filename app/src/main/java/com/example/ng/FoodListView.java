@@ -8,8 +8,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -39,7 +37,7 @@ public class FoodListView extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.food_lst);
+        setContentView(R.layout.food_list);
 
         //recyclerview 설정하기
         /*recyclerView = findViewById(R.id.recyclerview);
@@ -50,14 +48,14 @@ public class FoodListView extends AppCompatActivity {
         recyclerView.setAdapter(new RecyclerViewAdapter(child_case));*/
         
         //firebase 데이터 가져오기
-        listView = (ListView) findViewById(R.id.listview);
+        listView = (ListView) findViewById(R.id.listview1);
 
         initDatabase();
 
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, new ArrayList<String>());
         listView.setAdapter(adapter);
 
-        mReference = mDatabase.getReference("식품명"); // 변경값을 확인할 child 이름
+        mReference = mDatabase.getReference("food"); // 변경값을 확인할 child 이름
         mReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
