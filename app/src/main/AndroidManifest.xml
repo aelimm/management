@@ -24,6 +24,8 @@
         </activity>
         <activity android:name=".FoodListView"></activity>
         <activity android:name=".StuffFood"></activity>
+        <activity android:name=".PillListView"></activity>
+        <activity android:name=".StuffPill"></activity>
 
         <provider
             android:name="androidx.core.content.FileProvider"

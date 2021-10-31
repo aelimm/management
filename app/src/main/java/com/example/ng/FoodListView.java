@@ -60,7 +60,7 @@ public class FoodListView extends AppCompatActivity {
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, new ArrayList<String>());
         listView.setAdapter(adapter);
 
-        mReference = mDatabase.getReference("식품명"); // 변경값을 확인할 child 이름
+        mReference = mDatabase.getReference("food"); // 변경값을 확인할 child 이름
         mReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
